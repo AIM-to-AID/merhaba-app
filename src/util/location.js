@@ -16,6 +16,13 @@ export async function getLocation() {
   return location
 }
 
+export async function initLocation({data, setData}) {
+  if (!data.location) {
+    const location = await getLocation()
+    setData({...data, location})
+  }
+}
+
 export function locationString(location) {
   return [location.coords.latitude, location.coords.longitude] + ""
 }

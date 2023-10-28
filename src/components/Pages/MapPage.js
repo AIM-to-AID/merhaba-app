@@ -9,6 +9,7 @@ import MyStatusBar from '../MyStatusBar';
 import Link from "../Link"
 import PlaceCodePicker from '../PlaceCodePicker';
 import FetchContent from '../FetchContent';
+import { initLocation } from '../../util/location';
 
 // TODO for deployment https://docs.expo.dev/versions/latest/sdk/map-view/
 
@@ -126,6 +127,10 @@ export default function MapPage({data, setData}) {
   const [picked, setPicked] = useState(null)
   const [code, setCode] = useState(CODES.GROCERY)
 
+  useEffect(() => {
+    initLocation({data, setData})
+  }, [])
+
   const onPressMarker = (placeId) => {
     setPicked(placeId)
     LayoutAnimation.configureNext({
@@ -146,84 +151,98 @@ export default function MapPage({data, setData}) {
   }
 
   return <Container>
-    <MapView
-      style={{position: "absolute", width: "100%", height: "100%"}}
-      initialRegion={{latitude: data.location.coords.latitude, longitude: data.location.coords.longitude, latitudeDelta: 1, longitudeDelta: 1}}
-      mapPadding={{bottom: 50, top: 75}}
-    >
-      <FetchContent
-        args={{code}}
-        getCache={({code}) => {
-          return data.places?.nearby?.[code]
-        }}
-        updateCache={({args: {code}, result}) => {
-          setData({
-            ...data,
-            places: {
-              ...data.places,
-              // index by nearby
-              nearby: {
-                ...data.places?.nearby,
-                // index by code
-                [code]: result
+    {
+      data.location
+      ?
+      <>
+        <MapView
+          style={{position: "absolute", width: "100%", height: "100%"}}
+          initialRegion={{latitude: data.location.coords.latitude, longitude: data.location.coords.longitude, latitudeDelta: 1, longitudeDelta: 1}}
+          mapPadding={{bottom: 50, top: 75}}
+        >
+          <FetchContent
+            args={{code}}
+            getCache={({code}) => {
+              return data.places?.nearby?.[code]
+            }}
+            updateCache={({args: {code}, result}) => {
+              setData({
+                ...data,
+                places: {
+                  ...data.places,
+                  // index by nearby
+                  nearby: {
+                    ...data.places?.nearby,
+                    // index by code
+                    [code]: result
+                  }
+                }
+              })
+            }}
+            fetcher={({code}) => findPlaces({code, location: [data.location.coords.latitude, data.location.coords.longitude]})}
+            loading={() => {
+              // TODO, have this work
+              return <Nothing/>
+            }}
+            fail={() => {
+              return <Nothing/>
+            }}
+            success={result => {
+              const pickedInfoIndex = result.findIndex(info => info.place_id === picked)
+
+              let operatedResult
+              if (pickedInfoIndex !== -1) {
+                // pickedInfo.current = result[pickedInfoIndex]
+                operatedResult = new Array().concat(result.slice(0, pickedInfoIndex), result.slice(pickedInfoIndex + 1), result[pickedInfoIndex])
+              } else {
+                operatedResult = result
               }
-            }
-          })
-        }}
-        fetcher={({code}) => findPlaces({code, location: [data.location.coords.latitude, data.location.coords.longitude]})}
-        loading={() => {
-          // TODO, have this work
-          return <Nothing/>
-        }}
-        fail={() => {
-          return <Nothing/>
-        }}
-        success={result => {
-          const pickedInfoIndex = result.findIndex(info => info.place_id === picked)
 
-          let operatedResult
-          if (pickedInfoIndex !== -1) {
-            // pickedInfo.current = result[pickedInfoIndex]
-            operatedResult = new Array().concat(result.slice(0, pickedInfoIndex), result.slice(pickedInfoIndex + 1), result[pickedInfoIndex])
-          } else {
-            operatedResult = result
-          }
-
-          return operatedResult.map(info => {
-            return <Marker
-              onPress={() => onPressMarker(info.place_id)}
-              key={info.place_id}
-              coordinate={{latitude: info.geometry.location.lat, longitude: info.geometry.location.lng}}
-            >
-              <Image
-                source={info.place_id === picked ? require("../../../assets/page-specific/map/PickedPlace.png") : require("../../../assets/page-specific/map/Place.png")}
-              />
-            </Marker>
-          })
-        }}
-      />
-    </MapView>
-    <MyStatusBar backgroundColor={"black"}/>
-    <View style={{width: "100%", height: 90}}>
-      <PlaceCodePicker selected={code} onPress={onPressPlaceCodePicker}/>
-    </View>
-    <Requires
-      requisite={() => {
-        let info = undefined
-        if (picked) {
-          info = data.places?.nearby?.[code]?.find(item => item.place_id === picked)
-        }
-        return [info && picked, {info}]
-      }}
-      success={({info}) => {
-        return <View style={{position: "absolute", width: "100%", paddingHorizontal: 10, bottom: 85}}>
-          <InfoCard onClose={onClose} info={info} data={data} setData={setData}/>
+              return operatedResult.map(info => {
+                return <Marker
+                  onPress={() => onPressMarker(info.place_id)}
+                  key={info.place_id}
+                  coordinate={{latitude: info.geometry.location.lat, longitude: info.geometry.location.lng}}
+                >
+                  <Image
+                    source={info.place_id === picked ? require("../../../assets/page-specific/map/PickedPlace.png") : require("../../../assets/page-specific/map/Place.png")}
+                  />
+                </Marker>
+              })
+            }}
+          />
+        </MapView>
+        <MyStatusBar backgroundColor={"black"}/>
+        <View style={{width: "100%", height: 90}}>
+          <PlaceCodePicker selected={code} onPress={onPressPlaceCodePicker}/>
         </View>
-      }}
-      fail={() => {
-        return <Nothing/>
-      }}
-    />
+        <Requires
+          requisite={() => {
+            let info = undefined
+            if (picked) {
+              info = data.places?.nearby?.[code]?.find(item => item.place_id === picked)
+            }
+            return [info && picked, {info}]
+          }}
+          success={({info}) => {
+            return <View style={{position: "absolute", width: "100%", paddingHorizontal: 10, bottom: 85}}>
+              <InfoCard onClose={onClose} info={info} data={data} setData={setData}/>
+            </View>
+          }}
+          fail={() => {
+            return <Nothing/>
+          }}
+        />
+      </>
+      :
+      <>
+        <MyStatusBar backgroundColor={"black"}/>
+        <C style={{justifyContent: "center", alignItems: "center"}}>
+          <Bold style={{color: "black"}}>This feature requires location permissions</Bold>
+          <Bold style={{color: "black"}}>تتطلب هذه الميزة أذونات الموقع</Bold>
+        </C>
+      </>
+    }
     <Navbar setPageId={(pageId) => setData({...data, pageId})} pageId={data.pageId}/>
   </Container>
 }

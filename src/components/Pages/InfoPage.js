@@ -9,6 +9,7 @@ import Link from "../Link"
 import { PAGE_IDS } from '../../util/constants';
 import PlaceCodePicker from "../PlaceCodePicker"
 import FetchContent from '../FetchContent';
+import { initLocation } from '../../util/location';
 
 // Adapted from https://reactnative.dev/docs/layoutanimation.html
 if (Platform.OS === 'android') {
@@ -177,6 +178,10 @@ export default function InfoPage({setData, data}) {
 
   const [code, setCode] = useState(CODES.GROCERY)
 
+  useEffect(() => {
+    initLocation({data, setData})
+  }, [])
+
   const onPressPlaceCodePicker = (code) => {
     setCode(code)
     LayoutAnimation.configureNext({
@@ -190,46 +195,57 @@ export default function InfoPage({setData, data}) {
   return <Container>
     <Background source={require("../../../assets/page-specific/info/Background.png")}/>
     <MyStatusBar backgroundColor={"black"}/>
-    <View style={{width: "100%", height: 90}}>
-      <PlaceCodePicker selected={code} onPress={onPressPlaceCodePicker}/>
-    </View>
-    <View style={{height: 60, width: "100%"}}>
-      <Text style={{fontWeight: "bold", color: "white", fontSize: 30, marginLeft: 10}}>Near you بالقرب منك</Text>
-      <View style={{height: 2, width: 300, backgroundColor: "white", marginTop: 3}}></View>
-    </View>
-    <C grow={80}>
-      <FetchContent
-        args={{code}}
-        getCache={({code}) => {
-          return data.places?.nearby?.[code]
-        }}
-        updateCache={({args: {code}, result}) => {
-          setData({
-            ...data,
-            places: {
-              ...data.places,
-              // index by nearby
-              nearby: {
-                ...data.places?.nearby,
-                // index by code
-                [code]: result
-              }
-            }
-          })
-        }}
-        fetcher={({code}) => findPlaces({code, location: [data.location.coords.latitude, data.location.coords.longitude]})}
-        loading={() => {
-          return <Loading color={"white"}/>
-        }}
-        fail={() => {
-          return <Loading color={"white"}/>
-        }}
-        success={result => {
-          return <InfoCardList result={result} windowWidth={windowWidth} data={data} setData={setData}/>
-        }}
-      />
-    </C>
-    <View style={{height: 65, width: "100%"}}/>
+    {
+      data.location
+      ?
+      <>
+        <View style={{width: "100%", height: 90}}>
+          <PlaceCodePicker selected={code} onPress={onPressPlaceCodePicker}/>
+        </View>
+        <View style={{height: 60, width: "100%"}}>
+          <Text style={{fontWeight: "bold", color: "white", fontSize: 30, marginLeft: 10}}>Near you بالقرب منك</Text>
+          <View style={{height: 2, width: 300, backgroundColor: "white", marginTop: 3}}></View>
+        </View>
+        <C grow={80}>
+          <FetchContent
+            args={{code}}
+            getCache={({code}) => {
+              return data.places?.nearby?.[code]
+            }}
+            updateCache={({args: {code}, result}) => {
+              setData({
+                ...data,
+                places: {
+                  ...data.places,
+                  // index by nearby
+                  nearby: {
+                    ...data.places?.nearby,
+                    // index by code
+                    [code]: result
+                  }
+                }
+              })
+            }}
+            fetcher={({code}) => findPlaces({code, location: [data.location.coords.latitude, data.location.coords.longitude]})}
+            loading={() => {
+              return <Loading color={"white"}/>
+            }}
+            fail={() => {
+              return <Loading color={"white"}/>
+            }}
+            success={result => {
+              return <InfoCardList result={result} windowWidth={windowWidth} data={data} setData={setData}/>
+            }}
+          />
+        </C>
+        <View style={{height: 65, width: "100%"}}/>
+      </>
+      :
+      <C style={{alignItems: "center", justifyContent: "center"}}>
+        <Bold style={{color: "white"}}>This feature requires location permissions</Bold>
+        <Bold style={{color: "white"}}>تتطلب هذه الميزة أذونات الموقع</Bold>
+      </C>
+    }
     <Navbar setPageId={(pageId) => setData({...data, pageId})} pageId={data.pageId}/>
   </Container>
 }

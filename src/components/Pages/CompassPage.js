@@ -6,8 +6,9 @@ import MyStatusBar from '../MyStatusBar';
 import { getNextPrayerTime, getPrayerTimes } from '../../util/prayerTimes';
 import { getQibla } from '../../util/qibla';
 import { getRotateRadians, getReading, getRotate } from '../../util/compass';
-import {C, R, Container, Background} from "../layout"
+import {C, R, Container, Background, Bold} from "../layout"
 import { Magnetometer } from 'expo-sensors';
+import { initLocation } from '../../util/location';
 
 const MIN_UPDATE_INTERVAL = 200
 
@@ -55,6 +56,10 @@ export default function CompassPage({data, setData}) {
   const [subscription, setSubscription] = useState(null)
   const [reading, setReading] = useState(null)
   const {width: windowWidth, height: windowHeight} = useWindowDimensions();
+
+  useEffect(() => {
+    initLocation({data, setData})
+  }, [])
 
   const subscribe = () => {
     setSubscription(
@@ -145,30 +150,41 @@ export default function CompassPage({data, setData}) {
 
   return <Container>
     <Background source={require("../../../assets/page-specific/compass/Background.png")}/>
-    <Image style={compassStyles.north} source={require("../../../assets/page-specific/compass/NorthCompassPointer.png")}/>
-    <Image style={compassStyles.mecca} source={require("../../../assets/page-specific/compass/MeccaCompassPointer.png")}/>
-    <CompassText text={"N"} pointsTo={0}/>
-    <CompassText text={"E"} pointsTo={90}/>
-    <CompassText text={"S"} pointsTo={180}/>
-    <CompassText text={"W"} pointsTo={270}/>
-    <CompassText text={"🕋"} pointsTo={qibla}/>
-    <View style={compassStyles.centerInfo}>
-      <Text style={{fontWeight: "bold", fontSize: 30, color: "black"}}>{nameDegree(qibla).toUpperCase()}</Text>
-      <View style={{width: "80%", height: 3, backgroundColor: "black"}}></View>
-      <Text style={{fontWeight: "bold", fontSize: 30, color: "black"}}>{Math.round(qibla * 10) / 10}°</Text>
-    </View>
-    <MyStatusBar backgroundColor={"black"}/>
-    <R>
-      <View style={{height: 100, flex: 1, flexDirection: "column-reverse"}}>
-        <View style={{height: 3, backgroundColor: "white"}}/>
-        <Text style={{marginLeft: 5, fontSize: 25, color: "white", fontWeight: "bold"}}>Qibla Compass بوصلة القبلة</Text>
-      </View>
-      <View style={{width: 40}}/>
-      <C style={{paddingLeft: 10, marginTop: 10, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, backgroundColor: "white", height: 90}}>
-        <Text style={{fontWeight: "bold", fontSize: 20}}>Next prayer time وقت الصلاة</Text>
-        <Text style={{fontWeight: "bold", fontSize: 30, marginTop: -3}}>{nextPrayerTime}</Text>
+    {
+      data.location
+      ?
+      <>
+        <Image style={compassStyles.north} source={require("../../../assets/page-specific/compass/NorthCompassPointer.png")}/>
+        <Image style={compassStyles.mecca} source={require("../../../assets/page-specific/compass/MeccaCompassPointer.png")}/>
+        <CompassText text={"N"} pointsTo={0}/>
+        <CompassText text={"E"} pointsTo={90}/>
+        <CompassText text={"S"} pointsTo={180}/>
+        <CompassText text={"W"} pointsTo={270}/>
+        <CompassText text={"🕋"} pointsTo={qibla}/>
+        <View style={compassStyles.centerInfo}>
+          <Text style={{fontWeight: "bold", fontSize: 30, color: "black"}}>{nameDegree(qibla).toUpperCase()}</Text>
+          <View style={{width: "80%", height: 3, backgroundColor: "black"}}></View>
+          <Text style={{fontWeight: "bold", fontSize: 30, color: "black"}}>{Math.round(qibla * 10) / 10}°</Text>
+        </View>
+        <MyStatusBar backgroundColor={"black"}/>
+        <R>
+          <View style={{height: 100, flex: 1, flexDirection: "column-reverse"}}>
+            <View style={{height: 3, backgroundColor: "white"}}/>
+            <Text style={{marginLeft: 5, fontSize: 25, color: "white", fontWeight: "bold"}}>Qibla Compass بوصلة القبلة</Text>
+          </View>
+          <View style={{width: 40}}/>
+          <C style={{paddingLeft: 10, marginTop: 10, borderTopLeftRadius: 10, borderBottomLeftRadius: 10, backgroundColor: "white", height: 90}}>
+            <Text style={{fontWeight: "bold", fontSize: 20}}>Next prayer time وقت الصلاة</Text>
+            <Text style={{fontWeight: "bold", fontSize: 30, marginTop: -3}}>{nextPrayerTime}</Text>
+          </C>
+        </R>
+      </>
+      :
+      <C style={{alignItems: "center", justifyContent: "center"}}>
+        <Bold style={{color: "white"}}>This feature requires location permissions</Bold>
+        <Bold style={{color: "white"}}>تتطلب هذه الميزة أذونات الموقع</Bold>
       </C>
-    </R>
+    }
     <Navbar setPageId={(pageId) => setData({...data, pageId})} pageId={data.pageId}/>
   </Container>
 }

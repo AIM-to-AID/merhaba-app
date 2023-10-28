@@ -34,11 +34,6 @@ export default function _App() {
     places: {}
   })
 
-  useEffect(() => {
-    // TODO: make sure the user lets me do this
-    getLocation().then(location => setData({...data, location}))
-  }, [])
-
   // Boilerplate..
   // At the moment I have decided to write it in this way because I have come
   // to the conclusion that when it comes to jsx, boilerplate is better than
