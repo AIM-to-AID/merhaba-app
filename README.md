@@ -1,8 +1,8 @@
-# App First Draft
-Note: name to be changed
+# Merhaba App
+Note: readme to change
 
 This is the repo for an app being made for the congressional app challenge.
-It is targeted for Muslim refugees in the United States.
+It is meant to be a help to Muslim refugees in the United States.
 
 ## Setup
 
