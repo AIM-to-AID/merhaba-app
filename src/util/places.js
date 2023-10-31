@@ -1,10 +1,17 @@
 import { SECRET_APP_KEY, BACKEND_URL } from '../env';
 
 export const CODES = {
-  RESTAURANT: 1, // Unused atm
-  GROCERY: 2,
-  MOSQUE: 3,
-  CLOTHING: 4,
+  HALAL_RESTAURANTS: 1,
+  HALAL_GROCERY: 2,
+  MOSQUES: 3,
+  GENERAL_CLOTHING: 4,
+  BUS_STATIONS: 5,
+  BANKS: 6,
+  GOVERNMENT_OFFICES: 7,
+  HOUSING_ASSISTANCE: 8,
+  PARKS: 9,
+  ISLAMIC_CLOTHING: 10,
+  MEDICAL: 11,
 }
 
 export async function findPlacesTest({code, location}) {

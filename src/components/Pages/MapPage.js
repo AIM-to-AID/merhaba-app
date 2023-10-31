@@ -125,7 +125,7 @@ function InfoCard({info, onClose, data, setData}) {
 export default function MapPage({data, setData}) {
   // TODO, load more
   const [picked, setPicked] = useState(null)
-  const [code, setCode] = useState(CODES.GROCERY)
+  const [code, setCode] = useState(CODES.MOSQUES)
 
   useEffect(() => {
     initLocation({data, setData})
@@ -214,6 +214,7 @@ export default function MapPage({data, setData}) {
         </MapView>
         <MyStatusBar backgroundColor={"black"}/>
         <View style={{width: "100%", height: 90}}>
+          <Background source={require("../../../assets/page-specific/map/CodePickerBackground.png")}/>
           <PlaceCodePicker selected={code} onPress={onPressPlaceCodePicker}/>
         </View>
         <Requires

@@ -176,7 +176,7 @@ function InfoCardList({result, windowWidth, data, setData}) {
 export default function InfoPage({setData, data}) {
   const {width: windowWidth} = useWindowDimensions()
 
-  const [code, setCode] = useState(CODES.GROCERY)
+  const [code, setCode] = useState(CODES.MOSQUES)
 
   useEffect(() => {
     initLocation({data, setData})
