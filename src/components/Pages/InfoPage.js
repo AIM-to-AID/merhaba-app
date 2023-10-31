@@ -120,7 +120,7 @@ function MaxInfoCard({width, info, data, setData}) {
               <View/>}
               {website ?
               <View>
-                <Bold style={{paddingTop: 10}}>Website عنوان موقع ويب</Bold>
+                <Bold style={{paddingTop: 10}}>Website الموقع الالكتروني</Bold>
                 {/* Better than regex ©️ */}
                 <Link url={website}>{website.substring(0, website.length - (website[website.length - 1] === "/")).replaceAll("https://", "").replaceAll("http://", "").replaceAll("www.", "")}</Link>
               </View> :

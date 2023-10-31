@@ -36,10 +36,10 @@ export default function FaqPage({data, setData}) {
     <Rect height={3}/>
     <Rect color={"white"} width={310} height={3}/>
     <Text style={{fontSize: 20, color: "white", paddingVertical: 10, paddingHorizontal: 20, height: "30%", overflow: "hidden"}}>
-      {PEOPLE_NAMES[0]}, {PEOPLE_NAMES[1]}, {PEOPLE_NAMES[2]}, and {PEOPLE_NAMES[3]} all met in middle school in Minnesota. Now seniors, we are building this app with the non-profit AIM to AID. It is a great match for our aspirations, combing Aid to Aid's goals and our passion for computer science.
+      {PEOPLE_NAMES[0]}, {PEOPLE_NAMES[1]}, {PEOPLE_NAMES[2]}, and {PEOPLE_NAMES[3]} all met in middle school in Minnesota. Now seniors, we are building this app with the non-profit AIM to AID. It is a great match for our aspirations, combing AIM to AID's goals and our passion for computer science.
     </Text>
     <Rect height={"10%"}/>
-    <Bold style={{fontSize: 30, marginLeft: 10}}>Creators مبتدع</Bold>
+    <Bold style={{fontSize: 25, marginLeft: 10}}>Creators المبتكرون</Bold>
     <Rect height={3}/>
     <Rect color={"black"} width={"100%"} height={3} style={{marginLeft: 10}}/>
     <R>

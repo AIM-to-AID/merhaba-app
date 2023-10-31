@@ -121,7 +121,7 @@ export default function ResourcesPage({data, setData}) {
           <Link url="https://help.unhcr.org/usa/">help.unhcr.org/usa</Link>
         </BulletPoint>
       </DropDown>
-      <DropDown title="Crescent Wear لبس الهلال" initialState={DROP_DOWN_MODE.MINI}>
+      <DropDown title="Crescentwear كريسينت وير" initialState={DROP_DOWN_MODE.MINI}>
         <R style={{alignItems: "center", justifyContent: "center"}}>
           <Link url="https://crescentwear.com/">
             <Bold style={{fontSize: 20, padding: 10, color: "blue"}}>crescentwear.com</Bold>
