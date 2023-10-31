@@ -99,14 +99,14 @@ export default function ResourcesPage({data, setData}) {
       <DropDown title="Helpful Links روابط مفيدة" initialState={DROP_DOWN_MODE.MAX}>
         <Heading>Resettlement Agencies وكالات إعادة التوطين</Heading>
         <BulletPoint>
-          <Link url="https://www.rescue.org/">rescue.org</Link>
-        </BulletPoint>
-        <BulletPoint>
-          <Link url="https://refugees.org/">refugees.org</Link>
+          <Link url="https://refugees.org/refugee-resettlement/">refugees.org/refugee-resettlement</Link>
         </BulletPoint>
         <Heading>Legal Aid مساعدة قانونية</Heading>
         <BulletPoint>
           <Link url="https://immigrantjustice.org/immigrants">immigrantjustice.org</Link>
+        </BulletPoint>
+        <BulletPoint>
+          <Link url="https://refugees.org/legal-services/">refugees.org/legal-services</Link>
         </BulletPoint>
         <Heading>Employment Services خدمات التوظيف</Heading>
         <BulletPoint>
@@ -114,11 +114,11 @@ export default function ResourcesPage({data, setData}) {
         </BulletPoint>
         <Heading>Government Resources الموارد الحكومية</Heading>
         <BulletPoint>
-          <Link url="https://www.state.gov/refugee-admissions/">state.gov/refugee-admissions</Link>
+          <Link url="https://www.acf.hhs.gov/orr/programs/refugees">acf.hhs.gov/orr/programs/refugees</Link>
         </BulletPoint>
         <Heading>UNHCR مفوضية شؤون اللاجئين</Heading>
         <BulletPoint>
-          <Link url="https://www.unhcr.org/us/">unhcr.org/us</Link>
+          <Link url="https://help.unhcr.org/usa/">help.unhcr.org/usa</Link>
         </BulletPoint>
       </DropDown>
       <DropDown title="Crescent Wear لبس الهلال" initialState={DROP_DOWN_MODE.MINI}>
