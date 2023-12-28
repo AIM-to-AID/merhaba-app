@@ -15,6 +15,7 @@
       "**/*"
     ],
     "ios": {
+      "icon": "./assets/meta/icon.png",
       "supportsTablet": true,
       "bundleIdentifier": "bundle.ios.aimtoaid"
     },
