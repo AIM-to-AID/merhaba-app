@@ -1,4 +1,5 @@
-import { SECRET_APP_KEY, BACKEND_URL } from '../env';
+const SECRET_APP_KEY = process.env.SECRET_APP_KEY
+const BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL
 
 export const CODES = {
   HALAL_RESTAURANTS: 1,

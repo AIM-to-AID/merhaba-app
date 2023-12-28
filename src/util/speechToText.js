@@ -1,5 +1,7 @@
-import { BACKEND_URL, SECRET_APP_KEY } from '../env';
 import * as FileSystem from 'expo-file-system';
+
+const SECRET_APP_KEY = process.env.SECRET_APP_KEY
+const BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL
 
 export async function getSpeechTranslation({recordingUri}) {
   const formData = new FormData();

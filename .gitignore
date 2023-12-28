@@ -18,7 +18,5 @@ web-build/
 
 ideas.dev
 
-src/env.js
 .env
 .vscode
-people

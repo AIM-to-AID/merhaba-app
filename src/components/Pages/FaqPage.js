@@ -3,9 +3,10 @@ import { PAGE_IDS } from '../../util/constants';
 import Navbar from '../Navbar';
 import { Background, Container, Rect, Bold, C, R } from "../layout"
 import MyStatusBar from '../MyStatusBar';
-import { PEOPLE_NAMES } from "../../env"
 import { useState } from 'react';
 import Link from '../Link';
+
+const PEOPLE_NAMES = ["Scott", "Ibraheem", "Fahad", "Logan"]
 
 const PEOPLE_IMAGES = [
   require("../../../assets/page-specific/faq/people/1.png"),
