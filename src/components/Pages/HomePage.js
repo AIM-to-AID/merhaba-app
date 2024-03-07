@@ -1,13 +1,7 @@
-import {Text, View, StyleSheet, Image, SafeAreaView, Button, StatusBar, Pressable} from "react-native"
+import {Text, View, StyleSheet, Image, Pressable} from "react-native"
 import {PAGE_IDS} from "../../util/constants"
 import MyStatusBar from '../MyStatusBar'
 import { Container, R, C } from '../layout'
-
-const dotted = {
-  borderColor: "black",
-  borderStyle: "dotted",
-  borderWidth: 3,
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -57,7 +51,11 @@ const styles = StyleSheet.create({
 
 export default function Home({data, setData}) {
   function HomePageButton({pageId, children}) {
-    return <Pressable style={{flex: 1, padding: 10, position: "relative"}} onPress={() => setData({...data, pageId})}>
+    const onPress = () => {
+      setData({...data, pageId})
+    }
+
+    return <Pressable style={{flex: 1, padding: 10, position: "relative"}} onPress={onPress}>
       {children}
     </Pressable>
   }
