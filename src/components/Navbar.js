@@ -1,7 +1,7 @@
-import { Pressable, Image, View } from "react-native"
+import { Pressable, Image } from "react-native"
 import { memo } from 'react'
 import { PAGE_IDS } from '../util/constants'
-import {C, R, Container} from  "../components/layout"
+import {R, Container} from  "../components/layout"
 
 const filledIcons = {
   map: require("../../assets/icons/filled/Map.png"),
