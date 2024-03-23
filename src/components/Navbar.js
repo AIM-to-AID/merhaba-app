@@ -1,7 +1,7 @@
-import { Pressable, Image } from "react-native"
+import { Pressable, Image, View } from "react-native"
 import { memo } from 'react'
 import { PAGE_IDS } from '../util/constants'
-import {R, Container} from  "../components/layout"
+import {C, R, Container} from  "../components/layout"
 
 const filledIcons = {
   map: require("../../assets/icons/filled/Map.png"),
@@ -62,9 +62,12 @@ const pageData = {
 }
 
 function IconButton({pageId, setPageId, pageData}) {
-  return <Pressable style={{}} onPress={() => pageData.pageId === pageId || setPageId(pageData.pageId)}>
+  return <R style={{alignItems: "center", justifyContent: "center"}}>
+      <Pressable style={{width: "100%", flex: 1, alignItems: "center", justifyContent: "center", height: 33}} onPress={() => pageData.pageId === pageId || setPageId(pageData.pageId)}>
     <Image style={{}} source={pageData.pageId === pageId ? pageData.filledIcon : pageData.noFillIcon}/>
   </Pressable>
+  </R>
+
 }
 
 function Navbar({setPageId, pageId}) {
