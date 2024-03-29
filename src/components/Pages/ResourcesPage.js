@@ -121,17 +121,6 @@ export default function ResourcesPage({data, setData}) {
           <Link url="https://help.unhcr.org/usa/">help.unhcr.org/usa</Link>
         </BulletPoint>
       </DropDown>
-      <DropDown title="Crescentwear كريسينت وير" initialState={DROP_DOWN_MODE.MINI}>
-        <R style={{alignItems: "center", justifyContent: "center"}}>
-          <Link url="https://crescentwear.com/">
-            <Bold style={{fontSize: 20, padding: 10, color: "blue"}}>crescentwear.com</Bold>
-          </Link>
-        </R>
-        <WebView
-          source={{uri: "https://crescentwear.com/"}}
-          style={{height: windowHeight - 300, width: "100%", borderRadius: 10}}
-        />
-      </DropDown>
     </ScrollView>
     <Rect height={60}/>
     <Navbar pageId={data.pageId} setPageId={pageId => setData({...data, pageId})}/>
