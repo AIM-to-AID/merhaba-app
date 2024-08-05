@@ -9,25 +9,24 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@expo/webpack-config": "^19.0.0",
     "adhan": "^4.4.3",
-    "expo": "~49.0.7",
-    "expo-av": "~13.4.1",
-    "expo-file-system": "~15.4.5",
-    "expo-linking": "~5.0.2",
-    "expo-location": "~16.1.0",
-    "expo-sensors": "~12.3.0",
-    "expo-status-bar": "~1.6.0",
+    "expo": "^51.0.24",
+    "expo-av": "~14.0.6",
+    "expo-file-system": "~17.0.1",
+    "expo-haptics": "~13.0.1",
+    "expo-linking": "~6.3.1",
+    "expo-location": "~17.0.1",
+    "expo-sensors": "~13.0.9",
+    "expo-status-bar": "~1.12.1",
     "geomagnetism": "^0.1.1",
     "moment-timezone": "^0.5.43",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.72.10",
-    "react-native-maps": "1.7.1",
-    "react-native-web": "~0.19.6",
-    "react-native-webview": "13.2.2",
-    "tz-lookup": "^6.1.25",
-    "expo-haptics": "~12.4.0"
+    "react-native": "0.74.3",
+    "react-native-maps": "1.14.0",
+    "react-native-web": "~0.19.10",
+    "react-native-webview": "13.8.6",
+    "tz-lookup": "^6.1.25"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
