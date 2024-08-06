@@ -2,7 +2,7 @@
   "expo": {
     "name": "Merhaba - a hub for refugees",
     "slug": "merhaba-app",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "orientation": "portrait",
     "icon": "./assets/meta/icon.png",
     "userInterfaceStyle": "light",
@@ -34,7 +34,7 @@
           "apiKey": "AIzaSyA8V9tV4JaDrfuZxym92gGu44pa_GfR2DE"
         }
       },
-      "versionCode": 2,
+      "versionCode": 3,
       "package": "bundle.android.aimtoaid"
     },
     "plugins": [
